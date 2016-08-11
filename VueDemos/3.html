@@ -1,0 +1,20 @@
+<!-- 一个多层组件 -->
+<div id='app'>
+<my-component></my-component>
+</div>
+<script src='../bower_components/vue/dist/vue.min.js'></script>
+<script>
+var Child = Vue.extend({
+  template: '<span>Hello World!</span>'
+});
+var Parent = Vue.extend({
+  template: '<div><p>focus on the next element</p><my></my></div>',
+  components: {
+    'my': Child /* 这里的my传递到了自身的template中，通过<my></my>的方法调用 */
+  }
+});
+Vue.component('my-component', Parent);
+new Vue({
+  el: '#app',
+})
+</script>

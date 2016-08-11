@@ -1,0 +1,24 @@
+<!-- 跟上个例子效果一样，但实现不一样 -->
+<div id='app'>
+<div is='a'></div>
+<!-- 通过1、<my></my>调用或者通过2、is方法<div is='my'></div>调用都是一样的,但如果底部声明的变量名跟原生的元素名产生冲突（比如a、p），通过方法1则Vue不会替换，方法2则没有问题 -->
+</div>
+<script src='../bower_components/vue/dist/vue.min.js'></script>
+<script>
+var Child = Vue.extend({
+  template: '<span>Hello World!</span>'
+});
+var Parent = Vue.extend({
+  template: '<div><p>focus on the next ele</p><my-a></my-a></div>',
+  components: {
+    'my-a': Child
+  }
+});
+// 通过Vue.component()全局注册，跟全局声明变量一个道理，而通过如下方法只声明在本实例中，跟在函数中声明变量从而不污染全局变量是一个道理
+new Vue({
+  el: '#app',
+  components: {
+    a: Parent // 这里声明的变量名
+  }
+})
+</script>

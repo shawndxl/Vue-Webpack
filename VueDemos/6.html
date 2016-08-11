@@ -1,0 +1,33 @@
+<!-- 父元素传递信息到子元素中 -->
+<div id='app'>
+  <div is='a'></div>
+</div>
+
+<!-- 在JS中写DOM太难受了，而script内置DOM的写法（tamplate也可）在这时候就体现出作用了 -->
+<script type='text/template' id='temp'>
+  <div>
+    <p>focus on the next ele</p>
+    <child1 msg="hello" name="Jim Gorden"></child1>
+  </div>
+</script>
+
+<script src='../bower_components/vue/dist/vue.min.js'></script>
+<script>
+var parentDom = document.querySelector('#temp').innerHTML;
+
+var Parent = Vue.extend({
+  template: parentDom,
+  components: {
+    'child1': Vue.extend({
+      props: ['msg','name'],
+      template: '<span>{{msg}}</span><span>{{name}}</span>'
+    })
+  }
+});
+new Vue({
+  el: '#app',
+  components: {
+    a: Parent
+  }
+})
+</script>

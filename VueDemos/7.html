@@ -1,0 +1,46 @@
+<!-- 多个Vue + 动态模板 -->
+<html>
+<head></head>
+<body>
+<div class='page'>
+  <p>{{name}}</p>
+</div>
+<script type='text/template' id='temp'>
+  <h1>I m H 1</h1>
+  <div id='newElement'>
+    <p>focus on the next ele</p>
+    <child1 msg-name="hello" name="Jim Gorden"></child1>
+  </div>
+</script>
+</body>
+<script src='../bower_components/vue/dist/vue.min.js'></script>
+<script>
+// 动态生成Vue组件的父元素
+var div = document.createElement('div');
+div.innerHTML = '<div is="a"></div>';
+document.body.appendChild(div);
+
+var Parent = Vue.extend({
+  template: document.querySelector('#temp').innerHTML,
+  components: {
+    'child1': Vue.extend({
+      props: ['msgName','name'], /*传递参数中驼峰写法(msgName)需要在使用时转换为横杠写法(msg-name)*/
+      template: '<span>{{msgName}}</span><span>{{name}}</span>'
+    })
+  }
+});
+var aaa = new Vue({
+  el: div, /* 不要定义自己的范围是body等，会导致该范围内的其他vue定义无效 */
+  components: {
+    a: Parent
+  }
+})
+
+var vm = new Vue({
+  el: '.page',
+  data: {
+    name: 'shawn'
+  }
+})
+</script>
+</html>

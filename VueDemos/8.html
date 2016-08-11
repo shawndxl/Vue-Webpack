@@ -1,0 +1,28 @@
+<!-- 数据绑定 以及 子组件中的计算 -->
+<div id='app'>
+  <input v-model='num'>
+  <!-- v-model的num跟:num='num'中引号内的num都是父组件data中的num,而:num的这个num是子组件props中的num -->
+  <child is='child' msg='+1=' :num='num'></child>
+  <!-- msg是静态数据，:msg是动态数据 -->
+</div>
+
+<script src='../bower_components/vue/dist/vue.min.js'></script>
+<script>
+var vm = new Vue({
+  el: '#app',
+  data: {
+    num: 0
+  },
+  components: {
+    child: Vue.extend({
+      props: ['msg', 'num'],
+      template: '<span>{{msg}}{{num1}}</span>',
+      computed: { // 子元素也可以有computed等属性
+        num1: function() {
+          return parseInt(this.num) + 1; /* 注意这里的this, this.num 是props传递下来的值 */
+        }
+      }
+    })
+  }
+})
+</script>

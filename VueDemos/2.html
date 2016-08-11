@@ -1,0 +1,14 @@
+<!-- 自己创建一个组件放置到DOM中 -->
+<div id='app'>
+<my-component></my-component>
+</div>
+<script src='../bower_components/vue/dist/vue.min.js'></script>
+<script>
+Vue.component('my-component', {
+  template: '<span>Hello World!</span>'
+});
+// Vue.component 是全局注册一个Vue组件的意思，注册之后，可在DOM中直接调用，这时不需要传递到new Vue创建出来的对象中，但依然需要新建new Vue来告诉Vue把这个元素渲染一下
+new Vue({
+  el: '#app',
+})
+</script>

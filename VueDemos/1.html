@@ -1,0 +1,15 @@
+<!-- 最简单的例子:引用了vue文件之后，用js来传递值到DOM中 -->
+<div id='app'>
+<p>{{name}}</p>
+<p>{{age}}</p>
+</div>
+<script src='../bower_components/vue/dist/vue.min.js'></script>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    name: 'Jim',
+    age: 22
+  }
+})
+</script>
